@@ -1,6 +1,4 @@
 /// <reference types="p5/global" />
-
-import 'reset-css'
 import 'p5'
 
 // @ts-expect-error
