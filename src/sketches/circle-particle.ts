@@ -1,4 +1,3 @@
-/// <reference types="p5/global" />
 import 'p5'
 import { Color } from 'p5'
 
@@ -42,7 +41,6 @@ class Particle {
   }
 }
 
-// @ts-expect-error
 window.setup = () => {
   createCanvas(window.innerWidth, window.innerHeight)
   angleMode(DEGREES)
@@ -52,7 +50,6 @@ window.setup = () => {
   }
 }
 
-// @ts-expect-error
 window.draw = () => {
   background(15)
   for (let i = 0; i < particles.length; i++) {

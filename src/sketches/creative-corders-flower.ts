@@ -1,12 +1,9 @@
-/// <reference types="p5/global" />
 import 'p5'
 
-// @ts-expect-error
 window.setup = () => {
   createCanvas(window.innerWidth, window.innerHeight)
 }
 
-// @ts-expect-error
 window.draw = () => {
   background(247)
   let d = 10

@@ -31,15 +31,17 @@ class Particle {
     this.t += this.tStep
   }
   display() {
-    this.x = width / 2 + (this.a * sqrt(2) * cos(this.t)) / (sq(sin(this.t)) + 1)
-    this.y = height / 2 + (this.a * sqrt(2) * cos(this.t) * sin(this.t)) / (sq(sin(this.t)) + 1)
+    this.x =
+      width / 2 + (this.a * sqrt(2) * cos(this.t)) / (sq(sin(this.t)) + 1)
+    this.y =
+      height / 2 +
+      (this.a * sqrt(2) * cos(this.t) * sin(this.t)) / (sq(sin(this.t)) + 1)
 
     fill(this.fillColor)
     circle(this.x, this.y, this.d)
   }
 }
 
-// @ts-expect-error
 window.setup = () => {
   createCanvas(window.innerWidth, window.innerHeight)
   angleMode(DEGREES)
@@ -49,7 +51,6 @@ window.setup = () => {
   }
 }
 
-// @ts-expect-error
 window.draw = () => {
   background(255)
   for (let i = 0; i < particles.length; i++) {

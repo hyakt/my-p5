@@ -6,7 +6,6 @@ let boxSize: number
 let pg: Graphics
 let emoji, emojiCode
 
-// @ts-expect-error
 window.setup = () => {
   createCanvas(window.innerWidth, window.innerHeight, WEBGL)
   boxSize = min(width, height) * 0.475
@@ -15,7 +14,6 @@ window.setup = () => {
   pg.textAlign(CENTER, CENTER)
 }
 
-// @ts-expect-error
 window.draw = () => {
   background(0)
   // const emojiCode = random(127744, 128306)
