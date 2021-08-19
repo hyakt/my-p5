@@ -103,27 +103,29 @@ class Circle {
   }
 }
 
-function setup() {
-  colorMode(HSB, 100)
-  noFill()
-  background('#fff')
-  createCanvas(window.innerWidth, window.innerHeight)
-  for (let i = 0; i < circlesNum; i++) {
-    circles.push(new Circle())
-  }
+const baseCircle = () => {
   stroke(0)
   strokeWeight(weight)
   circle(width / 2, height / 2, size)
 }
 
+function setup() {
+  colorMode(HSB, 100)
+  noFill()
+  createCanvas(window.innerWidth, window.innerHeight)
+  for (let i = 0; i < circlesNum; i++) {
+    circles.push(new Circle())
+  }
+  baseCircle()
+}
+
 function draw() {
+  background('#fff')
   circles.forEach((e) => {
     e.display()
     e.move()
   })
-  stroke(0)
-  strokeWeight(weight)
-  circle(width / 2, height / 2, size)
+  baseCircle()
 }
 
 function mouseClicked() {
