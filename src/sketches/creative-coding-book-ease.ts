@@ -14,11 +14,6 @@ const palette = [
   'rgba(140, 57, 50, 0.5)',
 ]
 
-// https://easings.net/ja#easeInOutQuint
-function easeInOutQuint(x: number): number {
-  return x < 0.5 ? 16 * x * x * x * x * x : 1 - pow(-2 * x + 2, 5) / 2
-}
-
 function easeInOutCirc(x: number): number {
   return x < 0.5
     ? (1 - sqrt(1 - pow(2 * x, 2))) / 2
@@ -63,7 +58,7 @@ class Ring {
       this.prevAngle,
       this.nextAngle,
       easeInOutCirc(this.seq)
-    )
+    ) as any as Vector
     this.seq += this.step
     if (this.seq > 1.0) {
       this.prevAngle.set(this.angle)

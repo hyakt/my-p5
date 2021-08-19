@@ -1,13 +1,21 @@
-import 'p5'
 import p5, { Color, Vector } from 'p5'
-import easing from '../lib/easing'
 
-let circlesNum = 10
+let circlesNum = 20
 const circles: Circle[] = []
 const initialJitter = 6
 const aRange = 10
 const size = 400
 const weight = 40
+
+function easeOutElastic(x: number): number {
+  const c4 = (2 * Math.PI) / 3
+
+  return x === 0
+    ? 0
+    : x === 1
+    ? 1
+    : pow(2, -10 * x) * sin((x * 10 - 0.75) * c4) + 1
+}
 
 class Circle {
   size: number
@@ -28,7 +36,7 @@ class Circle {
     this.size = size
     this.weight = weight
     this.acc = random(-aRange, aRange)
-    this.jitter = width / 2
+    this.jitter = width
 
     this.initialDist = createVector(
       random(-initialJitter, initialJitter),
@@ -44,14 +52,14 @@ class Circle {
 
     this.strokeColor = color(random(100), random(100), 100, 50)
     this.t = 0
-    this.tStep = 1 / 100
+    this.tStep = 1 / 60
   }
   move() {
     this.dist = p5.Vector.lerp(
       this.prevDist,
       this.nextDist,
-      easing.easeOutElastic(this.t)
-    )
+      easeOutElastic(this.t)
+    ) as any as Vector
     this.t += this.tStep
     // if (this.dist.equals(this.initialDist)) {
     //   this.initialDist = createVector(
@@ -95,17 +103,20 @@ class Circle {
   }
 }
 
-window.setup = () => {
+function setup() {
   colorMode(HSB, 100)
   noFill()
+  background('#fff')
   createCanvas(window.innerWidth, window.innerHeight)
   for (let i = 0; i < circlesNum; i++) {
     circles.push(new Circle())
   }
+  stroke(0)
+  strokeWeight(weight)
+  circle(width / 2, height / 2, size)
 }
 
-window.draw = () => {
-  background('#fff')
+function draw() {
   circles.forEach((e) => {
     e.display()
     e.move()
@@ -115,8 +126,12 @@ window.draw = () => {
   circle(width / 2, height / 2, size)
 }
 
-window.mouseClicked = () => {
+function mouseClicked() {
   circles.forEach((e) => {
     e.click()
   })
 }
+
+window.setup = setup
+window.draw = draw
+window.mouseClicked = mouseClicked
