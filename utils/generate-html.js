@@ -19,7 +19,10 @@ const buildHtmlList = (list) =>
   <body>
     <h2>p5 sketches</h2>
     <ul>
-     ${list.reduce((acc, cur) => acc + `<li><a href='./${cur}.html'>${cur}</a></li>`, '')}
+     ${list.reduce(
+       (acc, cur) => acc + `<li><a href='./${cur}.html'>${cur}</a></li>`,
+       ''
+     )}
     <ul>
   </body>
 </html>

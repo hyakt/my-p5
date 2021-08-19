@@ -5,7 +5,6 @@
   "scripts": {
     "tsc": "tsc",
     "generate": "node utils/generate-html.js",
-    "build": "parcel build ./src/htmls/*.html",
     "serve": "parcel serve ./src/htmls/*.html",
     "clean": "rm ./src/htmls/*; rm -rf ./dist;",
     "dev": "npm run generate; npm run serve"
