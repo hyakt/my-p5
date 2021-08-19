@@ -1,42 +1,46 @@
 import 'p5'
-import p5, { Color, Renderer, Vector } from 'p5'
+import { Color } from 'p5'
 
 let circlesNum = 10
 const circles: Circle[] = []
-let baseCircle: Circle
-let cnv: Renderer
-const initialRange = 6
+const initialJitter = 6
 const aRange = 10
 const size = 400
 const weight = 40
 
+type Dist = {
+  x: number
+  y: number
+}
+
 class Circle {
   size: number
   weight: number
-  vector: Vector
-  a: number
+  initialDist: Dist
+  dist: Dist
+  acc: number
   tStep: number
-  seq: number
+  t: number
   direction: number
   strokeColor: Color
 
   constructor() {
     this.size = size
     this.weight = weight
-    this.a = random(-aRange, aRange)
-    this.vector = createVector(
-      random(-initialRange, initialRange),
-      random(-initialRange, initialRange),
-      0
-    )
-    this.strokeColor = color(random(100), random(100), 100, 50)
-
-    this.seq = 0
-    this.tStep = random(0, 0.1)
+    this.acc = random(-aRange, aRange)
+    this.initialDist = {
+      x: random(-initialJitter, initialJitter),
+      y: random(-initialJitter, initialJitter),
+    }
+    this.dist = this.initialDist
     this.direction = random([0, 1])
+
+    this.strokeColor = color(random(100), random(100), 100, 50)
+    this.t = 0
+    this.tStep = random(0, 0.1)
   }
   move() {
-    this.seq += this.tStep
+    this.t += this.tStep
   }
   click() {}
   display() {
@@ -47,16 +51,16 @@ class Circle {
     let deltaX: number
     let deltaY: number
     if (this.direction) {
-      deltaX = sin(this.seq) * this.a
-      deltaY = cos(this.seq) * this.a
+      deltaX = sin(this.t)
+      deltaY = cos(this.t)
     } else {
-      deltaX = cos(this.seq) * this.a
-      deltaY = sin(this.seq) * this.a
+      deltaX = cos(this.t)
+      deltaY = sin(this.t)
     }
 
     circle(
-      width / 2 + deltaX + this.vector.x,
-      height / 2 + deltaY + this.vector.y,
+      width / 2 + deltaX * this.acc + this.dist.x,
+      height / 2 + deltaY * this.acc + this.dist.y,
       this.size
     )
     pop()
