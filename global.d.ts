@@ -3,6 +3,7 @@
 declare const drawingContext
 
 interface Window {
+  preload: () => void
   setup: () => void
   draw: () => void
 }
