@@ -55,11 +55,7 @@ abstract class Fabric {
   abstract generateTexture(): void
 }
 
-class Linen extends Fabric {
-  constructor(width: number, height: number, color: Color) {
-    super(width, height, color)
-  }
-
+class Cotton extends Fabric {
   generateTexture() {
     this.texture.loadPixels()
     for (let i = 0; i < this.texture.width; i++) {
@@ -71,11 +67,46 @@ class Linen extends Fabric {
   }
 }
 
+class Linen extends Fabric {
+  generateTexture() {
+    this.texture.loadPixels()
+    for (let i = 0; i < this.texture.width; i++) {
+      for (let j = 0; j < this.texture.height; j++) {
+        let pixcel = color(200)
+        if (i % 2 === 0 && j % 2 === 0) {
+          pixcel = color(255)
+        }
+        this.texture.set(i, j, pixcel)
+      }
+    }
+    this.texture.updatePixels()
+  }
+}
+
+class Polyester extends Fabric {
+  generateTexture() {
+    this.texture.loadPixels()
+    for (let i = 0; i < this.texture.width; i++) {
+      for (let j = 0; j < this.texture.height; j++) {
+        let pixcel = color(200)
+        if (i % 2 === 0) {
+          pixcel = color(255)
+        }
+        this.texture.set(i, j, pixcel)
+      }
+    }
+    this.texture.updatePixels()
+  }
+}
+
 let linen: Fabric
 
 function setup() {
   createCanvas(window.innerWidth, window.innerHeight)
-  linen = new Linen(
+
+  const Clazz = random([Cotton, Linen, Polyester])
+
+  linen = new Clazz(
     100,
     100,
     color(random(0, 255), random(0, 255), random(0, 255))
