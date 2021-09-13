@@ -99,23 +99,24 @@ class Polyester extends Fabric {
   }
 }
 
-let linen: Fabric
-
 function setup() {
   createCanvas(window.innerWidth, window.innerHeight)
-
-  const Clazz = random([Cotton, Linen, Polyester])
-
-  linen = new Clazz(
-    100,
-    100,
-    color(random(0, 255), random(0, 255), random(0, 255))
-  )
   noLoop()
 }
 
 function draw() {
-  image(linen.image(), 0, 0)
+  console.log('width: ', width)
+  for (let i = 0; i < width; i += 200) {
+    for (let j = 0; j < height; j += 200) {
+      const Clazz = random([Cotton, Linen, Polyester])
+      const fablic: Fabric = new Clazz(
+        random([100, 300]),
+        random([100, 300]),
+        color(random(0, 255), random(0, 255), random(0, 255))
+      )
+      image(fablic.image(), i, j)
+    }
+  }
 }
 
 window.setup = setup
