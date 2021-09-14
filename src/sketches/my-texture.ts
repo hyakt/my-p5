@@ -1,6 +1,17 @@
 import 'p5'
 import { Color, Image } from 'p5'
 
+const colors = [
+  '#DE487A',
+  '#E14A83',
+  '#D07294',
+  '#EDAEF4',
+  '#0C344E',
+  '#3F4F55',
+  '#54C5CC',
+  '#39A2E1',
+]
+
 abstract class Fabric {
   private width: number
   private height: number
@@ -105,14 +116,13 @@ function setup() {
 }
 
 function draw() {
-  console.log('width: ', width)
-  for (let i = 0; i < width; i += 200) {
-    for (let j = 0; j < height; j += 200) {
+  for (let i = 0; i < width; i += 100) {
+    for (let j = 0; j < height; j += 100) {
       const Clazz = random([Cotton, Linen, Polyester])
       const fablic: Fabric = new Clazz(
-        random([100, 300]),
-        random([100, 300]),
-        color(random(0, 255), random(0, 255), random(0, 255))
+        random([200, 300]),
+        random([200, 300]),
+        color(random(colors))
       )
       image(fablic.image(), i, j)
     }
