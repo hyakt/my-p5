@@ -1,16 +1,20 @@
 import 'p5'
 import { Color, Image } from 'p5'
 
-const colors = [
-  '#DE487A',
-  '#E14A83',
-  '#D07294',
-  '#EDAEF4',
-  '#0C344E',
-  '#3F4F55',
-  '#54C5CC',
-  '#39A2E1',
-]
+// const colors = [
+//   '#DE487A',
+//   '#E14A83',
+//   '#D07294',
+//   '#EDAEF4',
+//   '#0C344E',
+//   '#3F4F55',
+//   '#54C5CC',
+//   '#39A2E1',
+// ]
+
+// const colors = ['#F0F0F2', '#496373', '#364F59', '#589EA6', '#75BFBF']
+// const colors = ['#D0D2F2', '#F2E205', '#F2EDA2', '#F2F0CE', '#D9D2D2']
+const colors = ['#FFFFFF', '#FFFFFF', '#ECECEC', '#DBDBDB', '#F4F4F4']
 
 abstract class Fabric {
   private width: number
@@ -71,7 +75,7 @@ class Cotton extends Fabric {
     this.texture.loadPixels()
     for (let i = 0; i < this.texture.width; i++) {
       for (let j = 0; j < this.texture.height; j++) {
-        this.texture.set(i, j, color(random([200, 255])))
+        this.texture.set(i, j, color(100, random([0, 50, 100])))
       }
     }
     this.texture.updatePixels()
@@ -84,7 +88,7 @@ class Linen extends Fabric {
     for (let i = 0; i < this.texture.width; i++) {
       for (let j = 0; j < this.texture.height; j++) {
         let pixcel = color(200)
-        if (i % 2 === 0 && j % 2 === 0) {
+        if (i % 4 === 0 && j % 4 === 0) {
           pixcel = color(255)
         }
         this.texture.set(i, j, pixcel)
@@ -100,7 +104,39 @@ class Polyester extends Fabric {
     for (let i = 0; i < this.texture.width; i++) {
       for (let j = 0; j < this.texture.height; j++) {
         let pixcel = color(200)
-        if (i % 2 === 0) {
+        if ((j + i) % 8 === 0) {
+          pixcel = color(255)
+        }
+        this.texture.set(i, j, pixcel)
+      }
+    }
+    this.texture.updatePixels()
+  }
+}
+
+class Polyester2 extends Fabric {
+  generateTexture() {
+    this.texture.loadPixels()
+    for (let i = 0; i < this.texture.width; i++) {
+      for (let j = 0; j < this.texture.height; j++) {
+        let pixcel = color(200)
+        if (i % 4 === 0) {
+          pixcel = color(255)
+        }
+        this.texture.set(i, j, pixcel)
+      }
+    }
+    this.texture.updatePixels()
+  }
+}
+
+class Polyester3 extends Fabric {
+  generateTexture() {
+    this.texture.loadPixels()
+    for (let i = 0; i < this.texture.width; i++) {
+      for (let j = 0; j < this.texture.height; j++) {
+        let pixcel = color(200)
+        if (j % 4 === 0) {
           pixcel = color(255)
         }
         this.texture.set(i, j, pixcel)
@@ -118,10 +154,17 @@ function setup() {
 function draw() {
   for (let i = 0; i < width; i += 100) {
     for (let j = 0; j < height; j += 100) {
+      const Clazz = random([Cotton, Linen, Polyester, Polyester2, Polyester3])
+      const fablic: Fabric = new Clazz(100, 100, color(random(colors)))
+      image(fablic.image(), i, j)
+    }
+  }
+  for (let i = 0; i < width; i += 200) {
+    for (let j = 0; j < height; j += 200) {
       const Clazz = random([Cotton, Linen, Polyester])
       const fablic: Fabric = new Clazz(
-        random([200, 300]),
-        random([200, 300]),
+        random([100, 300]),
+        random([100, 300]),
         color(random(colors))
       )
       image(fablic.image(), i, j)
