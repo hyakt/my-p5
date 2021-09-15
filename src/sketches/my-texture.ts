@@ -14,7 +14,7 @@ import { Color, Image } from 'p5'
 
 // const colors = ['#F0F0F2', '#496373', '#364F59', '#589EA6', '#75BFBF']
 // const colors = ['#D0D2F2', '#F2E205', '#F2EDA2', '#F2F0CE', '#D9D2D2']
-const colors = ['#FFFFFF', '#FFFFFF', '#ECECEC', '#DBDBDB', '#F4F4F4']
+const colors = ['#FFFFFF', '#000']
 
 abstract class Fabric {
   private width: number
@@ -59,7 +59,7 @@ abstract class Fabric {
       0,
       this.width,
       this.height,
-      MULTIPLY
+      DIFFERENCE
     )
   }
 
@@ -70,12 +70,16 @@ abstract class Fabric {
   abstract generateTexture(): void
 }
 
+class Plane extends Fabric {
+  generateTexture() {}
+}
+
 class Cotton extends Fabric {
   generateTexture() {
     this.texture.loadPixels()
     for (let i = 0; i < this.texture.width; i++) {
       for (let j = 0; j < this.texture.height; j++) {
-        this.texture.set(i, j, color(100, random([0, 50, 100])))
+        this.texture.set(i, j, color(100, random([0, 255])))
       }
     }
     this.texture.updatePixels()
@@ -87,7 +91,7 @@ class Linen extends Fabric {
     this.texture.loadPixels()
     for (let i = 0; i < this.texture.width; i++) {
       for (let j = 0; j < this.texture.height; j++) {
-        let pixcel = color(200)
+        let pixcel = color(0)
         if (i % 4 === 0 && j % 4 === 0) {
           pixcel = color(255)
         }
@@ -103,7 +107,7 @@ class Polyester extends Fabric {
     this.texture.loadPixels()
     for (let i = 0; i < this.texture.width; i++) {
       for (let j = 0; j < this.texture.height; j++) {
-        let pixcel = color(200)
+        let pixcel = color(0)
         if ((j + i) % 8 === 0) {
           pixcel = color(255)
         }
@@ -152,19 +156,30 @@ function setup() {
 }
 
 function draw() {
-  for (let i = 0; i < width; i += 100) {
-    for (let j = 0; j < height; j += 100) {
-      const Clazz = random([Cotton, Linen, Polyester, Polyester2, Polyester3])
-      const fablic: Fabric = new Clazz(100, 100, color(random(colors)))
-      image(fablic.image(), i, j)
-    }
-  }
+  const Clazz = random([
+    Plane,
+    Cotton,
+    Linen,
+    Polyester,
+    Polyester2,
+    Polyester3,
+  ])
+  const fablic: Fabric = new Clazz(width, height, color(random(colors)))
+  image(fablic.image(), 0, 0)
+
   for (let i = 0; i < width; i += 200) {
     for (let j = 0; j < height; j += 200) {
-      const Clazz = random([Cotton, Linen, Polyester])
+      const Clazz = random([
+        Plane,
+        Cotton,
+        Linen,
+        Polyester,
+        Polyester2,
+        Polyester3,
+      ])
       const fablic: Fabric = new Clazz(
-        random([100, 300]),
-        random([100, 300]),
+        random([100, 200, 300]),
+        random([100, 200, 300]),
         color(random(colors))
       )
       image(fablic.image(), i, j)
