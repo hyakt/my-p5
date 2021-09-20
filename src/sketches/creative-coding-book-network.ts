@@ -53,11 +53,7 @@ class Dot {
     }
   }
   display() {
-    this.pos = p5.Vector.lerp(
-      this.prevPos,
-      this.nextPos,
-      elasticOut(this.seq)
-    ) as any as Vector
+    this.pos = p5.Vector.lerp(this.prevPos, this.nextPos, elasticOut(this.seq))
     circle(this.pos.x, this.pos.y, 12)
   }
 }

@@ -58,7 +58,7 @@ class Ring {
       this.prevAngle,
       this.nextAngle,
       easeInOutCirc(this.seq)
-    ) as any as Vector
+    )
     this.seq += this.step
     if (this.seq > 1.0) {
       this.prevAngle.set(this.angle)

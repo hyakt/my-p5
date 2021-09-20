@@ -59,7 +59,7 @@ class Circle {
       this.prevDist,
       this.nextDist,
       easeOutElastic(this.t)
-    ) as any as Vector
+    )
     this.t += this.tStep
     // if (this.dist.equals(this.initialDist)) {
     //   this.initialDist = createVector(
