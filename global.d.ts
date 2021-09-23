@@ -3,6 +3,7 @@
 declare const drawingContext
 
 function erase(): void
+function noErase(): void
 
 interface Window {
   preload: () => void
